@@ -8,15 +8,20 @@ module.exports = {
     colors: {
       black: "#1A1A21",
       "black-task-area": "#16161C",
-      "black-bg-task": "#1E1E26",
+      "global-bg-and-task-bg": "#1E1E26",
       gray: "#2D2D3B",
       white: "#F9F9F9",
+      "task-title": "#EE69AC"
+      
     },
     extend: {
       backgroundImage: {
         "my-gradient":
           "linear-gradient(249.73deg, #F29682 0%, #EE69AC 50%, #CB4BCF 100%)",
       },
+      gridTemplateColumns: {
+        "template-columns": "minmax(200px,320px) 1fr" 
+      }
     },
   },
   plugins: [],

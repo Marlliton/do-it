@@ -1,4 +1,4 @@
-import { Header } from "../basicComponents/header";
+import { Header } from "../basicComponents/Header";
 
 interface MainProps {
   children: any;

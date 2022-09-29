@@ -1,4 +1,4 @@
-import { MyImage } from "../image";
+import { MyImage } from "../Image";
 import logo from "public/images/small_logo_mobile.svg";
 import arrowLeft from "public/images/back.svg";
 
@@ -6,7 +6,7 @@ export function Header() {
   return (
     <header
       className={`
-          h-[80px] border-b border-b-black-task-area/75 flex justify-between items-center px-6
+          h-[80px] border-b border-b-black-task-area   flex justify-between items-center px-6
         `}
     >
       <button

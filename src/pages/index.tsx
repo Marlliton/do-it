@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head';
+import { TaskArea } from '../components/TaskArea';
 import { Main } from '../components/template/Main';
+import { UserInformation } from '../components/UserInformation';
 
 const Home: NextPage = () => {
   return (
@@ -10,10 +12,8 @@ const Home: NextPage = () => {
         <title>Do It!</title>
       </Head>
       <Main>
-        <div className=''>Div 01</div>
-        <div className='bg-black-task-area rounded-sm'>
-          Div 02
-        </div>
+        <UserInformation username='Marlliton Souza' />
+        <TaskArea />
       </Main>
     </div>
   )

@@ -9,6 +9,7 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <meta name="description" content="Seu app de tarefas favorito." />
+        <link rel="shortcut icon" href="images/small_logo_mobile.svg" type="image/svg" />
         <title>Do It!</title>
       </Head>
       <Main>

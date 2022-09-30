@@ -12,7 +12,7 @@ export function UserInformation(props: UserInformationProps) {
   return (
     <div
       className={`
-      flex flex-col justify-between
+      hidden  md:flex flex-col justify-between 
     `}
     >
       <div className="p-5">
@@ -25,21 +25,21 @@ export function UserInformation(props: UserInformationProps) {
       </div>
       <div
         className={`
-        p-10 flex gap-4
+        p-8 lg:p-10 flex gap-4 items-center
       `}
       >
         <MyImage
           src={mediumLogo}
           alt="Logo Da aplicação"
           classNames={`
-          h-[50px] w-[50px]
+          h-[35px] md:w-[35px] lg:h-[50px] lg:w-[50px]
         `}
         />
         <span>
           <h2 className="font-bold">Do It!</h2>
           <div className="flex items-center gap-2">
             <p>seu to do app favorito</p>
-            <Heart color="#EE69AC" size={20} weight="fill" />
+            <Heart color="#EE69AC" size={20} />
           </div>
         </span>
       </div>

@@ -3,6 +3,8 @@ interface ButtonProps {
   className?: string;
   scale?: boolean;
   brightnessOnHover?: boolean;
+  clickDownEffect?: boolean
+  clickUpEffect?: boolean
   onClick?(): void;
 }
 
@@ -10,7 +12,9 @@ export function Button(props: ButtonProps) {
   return (
     <button
       className={`
-            flex justify-center items-center transition-all active:scale-105
+            flex justify-center items-center transition-all 
+            ${props?.clickUpEffect && "active:scale-105"}  
+            ${props?.clickDownEffect && "active:scale-95"}  
             ${props?.scale && "hover:scale-110"}  
             ${props.brightnessOnHover && "hover:brightness-110"}
             ${props?.className}

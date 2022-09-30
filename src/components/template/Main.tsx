@@ -2,13 +2,14 @@ import { Header } from "../basicComponents/Header";
 
 interface MainProps {
   children: any;
+  withHeader?: boolean;
 }
 
 export function Main(props: MainProps) {
   return (
     <div
       className={`
-      flex justify-center h-screen bg-global-bg-and-task-bg py-20 px-3 text-white
+      flex justify-center h-screen bg-global-bg-and-task-bg md:py-20 md:px-3 text-white
     `}
     >
       <div
@@ -17,10 +18,10 @@ export function Main(props: MainProps) {
         overflow-hidden
       `}
       >
-        <Header />
+        {props.withHeader && <Header />}
         <div
           className={`
-          grid grid-cols-template-columns h-full
+          grid grid-cols-sm-columns md:grid-cols-md-columns lg:grid-cols-lg-columns h-full
         `}
         >
           {props.children}

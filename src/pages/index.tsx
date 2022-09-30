@@ -1,10 +1,11 @@
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
 import Head from 'next/head';
 import { TaskArea } from '../components/TaskArea';
 import { Main } from '../components/template/Main';
 import { UserInformation } from '../components/UserInformation';
 
 const Home: NextPage = () => {
+  
   return (
     <div>
       <Head>
@@ -12,7 +13,7 @@ const Home: NextPage = () => {
         <link rel="shortcut icon" href="images/small_logo_mobile.svg" type="image/svg" />
         <title>Do It!</title>
       </Head>
-      <Main>
+      <Main withHeader>
         <UserInformation username='Marlliton Souza' />
         <TaskArea />
       </Main>

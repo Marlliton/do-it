@@ -20,7 +20,9 @@ module.exports = {
           "linear-gradient(249.73deg, #F29682 0%, #EE69AC 50%, #CB4BCF 100%)",
       },
       gridTemplateColumns: {
-        "template-columns": "minmax(300px,400px) 1fr" 
+        "lg-columns": "minmax(300px,400px) 1fr" ,
+        "md-columns": "minmax(240px,330px) 1fr" ,
+        "sm-columns": "1fr" ,
       }
     },
   },

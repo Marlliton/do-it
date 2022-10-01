@@ -23,7 +23,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const router = useRouter();
 
-  async function configureSection(user: User) {
+  async function configureSection(user: User | null) {
     if (user?.email) {
       setUser(user);
       setLoading(false);

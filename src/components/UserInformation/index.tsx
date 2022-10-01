@@ -19,7 +19,8 @@ export function UserInformation(props: UserInformationProps) {
         <MyImage
           src={props.imageUrl ?? defaultUserImage}
           alt="Imagem de perfil"
-          classNames="h-28 w-28"
+          classNames="h-28 w-28 rounded-full overflow-hidden"
+          size={100}
         />
         <h1 className="font-bold pt-5 text-2xl">Olá, {props.username}!</h1>
       </div>

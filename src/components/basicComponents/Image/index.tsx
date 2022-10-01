@@ -4,12 +4,13 @@ interface ImageProps {
   src: any;
   alt: string;
   classNames?: string;
+  size?: number
 }
 
 export function MyImage(props: ImageProps) {
   return (
     <div className={`${props?.classNames}`}>
-      <Image src={props.src} alt={props.alt} layout="responsive"  />
+      <Image src={props.src} alt={props.alt} layout="responsive" height={props.size} width={props.size} />
     </div>
   );
 }

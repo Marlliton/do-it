@@ -45,8 +45,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function logout() {
-    await services.auth.logout();
     configureSection(null)
+    await services.auth.logout();
+    setLoading(false)
   }
 
   function handleCookies(isToRegister: boolean = false) {

@@ -11,6 +11,7 @@ export function TaskArea() {
           <Button
             brightnessOnHover
             scale
+            clickDownEffect
             className={`bg-my-gradient h-10 w-10 rounded-full`}
           >
             <Plus weight="bold" size={25} />

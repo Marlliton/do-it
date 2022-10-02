@@ -15,4 +15,5 @@ export default class User {
   get name() { return this._props.name}
   get email() { return this._props.email}
   get imgUrl() { return this._props.imgUrl}
+  get uid() { return this._props.uid}
 }

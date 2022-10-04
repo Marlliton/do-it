@@ -1,5 +1,7 @@
+import Id from "./Id";
+
 export interface EntityProps {
-  id?: number;
+  id?: string;
 }
 
 export default abstract class Entity<T, TProps extends EntityProps> {

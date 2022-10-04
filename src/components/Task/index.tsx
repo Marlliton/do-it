@@ -2,10 +2,12 @@ import { CheckSquare, PencilSimpleLine, Square, Trash } from "phosphor-react";
 import { Button } from "../basicComponents/Button";
 
 interface TaskProps {
+  id: string;
   title: string;
   content: string;
   completed?: boolean;
-  onClick?(): void;
+  onToggleStatus?(): void;
+  onDelete?(): void;
 }
 
 export function Task(props: TaskProps) {
@@ -16,7 +18,7 @@ export function Task(props: TaskProps) {
       w-full min-h-min rounded-lg p-1
     `}
     >
-      <div>
+      <div className="w-full">
         <h1
           className={`font-bold text-xl pb-1 text-task-title ${
             props.completed && "brightness-75"
@@ -31,13 +33,13 @@ export function Task(props: TaskProps) {
         </p>
       </div>
       <div className="flex flex-col md:flex-row gap-2 ml-2">
-        <Button scale clickUpEffect className="hover:text-task-title">
+        <Button onClick={props.onDelete} scale clickUpEffect className="hover:text-task-title">
           <Trash size={24} />
         </Button>
         <Button scale clickUpEffect className="hover:text-task-title">
           <PencilSimpleLine size={24} />
         </Button>
-        <Button scale clickUpEffect className="hover:text-task-title">
+        <Button onClick={props.onToggleStatus} scale clickUpEffect className="hover:text-task-title">
           {!props.completed ? (
             <Square size={24} />
           ) : (

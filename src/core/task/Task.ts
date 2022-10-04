@@ -36,6 +36,15 @@ export default class Task extends Entity<Task, TaskProps> {
     return this.clone({isCompleted: true})
   }
 
+  toJson() {
+    return {
+      id: this._props.id,
+      title: this._props.title,
+      description: this._props.description,
+      isCompleted: this._props.isCompleted 
+    }
+  }
+
   protected validations(): void {
     if (!this.id) {
       throw new Error("Id é obrigatório");

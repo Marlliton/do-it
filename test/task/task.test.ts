@@ -1,11 +1,13 @@
+import Id from "../../src/core/shared/Id";
 import Task from "../../src/core/task/Task";
 
 describe("Deve testar as tarefas", () => {
   test("Deve criar uma tarefa", () => {
+    const id = Id.new()
     const task = new Task({
       title: "Cerveja",
       description: "Devo Comprar cerveja para tomar mais tarde",
-      id: 1,
+      id,
       isCompleted: false,
     });
 
@@ -14,7 +16,7 @@ describe("Deve testar as tarefas", () => {
       "description",
       "Devo Comprar cerveja para tomar mais tarde"
     );
-    expect(task.id).toBe(1);
+    expect(task.id).toBe(id);
     expect(task.isCompleted).toBe(false);
   });
 
@@ -30,10 +32,11 @@ describe("Deve testar as tarefas", () => {
   });
 
   test("Deve criar uma tarefa pendente", () => {
+    const id = Id.new()
     const task = Task.newTask({
       title: "Mudar minhas...",
       description: "Devo melhorar como pessoa",
-      id: 1,
+      id,
       isCompleted: false,
     });
 
@@ -41,10 +44,11 @@ describe("Deve testar as tarefas", () => {
   });
 
   test("Deve alterar o status para completada", () => {
+    const id = Id.new()
     const task = Task.newTask({
       title: "Tarefa Pendente",
       description: "Devo completar essa tarefa",
-      id: 1,
+      id,
     });
 
     const completedTask = task.changeCompleted();
@@ -52,10 +56,11 @@ describe("Deve testar as tarefas", () => {
   });
 
   test("Deve alterar o status para pendente", () => {
+    const id = Id.new()
     const task = new Task({
       title: "Tarefa Completada",
       description: "Devo tornar essa tarefa pendente",
-      id: 1,
+      id,
       isCompleted: true
     });
 

@@ -1,11 +1,9 @@
+import { NextPage } from "next";
+import { GoogleLogo } from "phosphor-react";
+import desktopLogo from "public/images/desktop_logo.svg";
+import { Button } from "../components/basicComponents/Button";
 import { MyImage } from "../components/basicComponents/Image";
 import { Main } from "../components/template/Main";
-import desktopLogo from "public/images/desktop_logo.svg";
-import { NextPage } from "next";
-import { Button } from "../components/basicComponents/Button";
-import { GoogleLogo } from "phosphor-react";
-import { services } from "../service";
-import Router from "next/router";
 import { useAuth } from "../hooks/useAuth";
 
 const Authenticate: NextPage = () => {

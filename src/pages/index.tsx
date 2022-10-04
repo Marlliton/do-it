@@ -1,21 +1,77 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import router from "next/router";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Modal } from "../components/Modal";
 import { TaskArea } from "../components/TaskArea";
 import { Main } from "../components/template/Main";
 import { UserInformation } from "../components/UserInformation";
+import Id from "../core/shared/Id";
+import { TypeFilter } from "../core/shared/TypeFilter";
+import ListTasks from "../core/task/ListTasks";
+import Task, { TaskProps } from "../core/task/Task";
 import { useAuth } from "../hooks/useAuth";
+import { useTask } from "../hooks/useTask";
 import Authenticate from "./authenticate";
 
 const Home: NextPage = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [listTasks, setListTasks] = useState<ListTasks>();
   const { loading, user } = useAuth();
+  const { consult, save, update, destroy } = useTask();
+
+  useEffect(() => {
+    (async function () {
+      const listTasks = await consult();
+      setListTasks(
+        new ListTasks({ tasks: listTasks, filter: TypeFilter.NONE })
+      );
+    })();
+  }, [user?.email]);
+
+  function handleSubmit(e: React.FormEvent, inputData: any) {
+    e.preventDefault();
+    createNewTask({
+      title: inputData.title,
+      description: inputData.description,
+    } as Task);
+  }
+
+  function createNewTask(newTask: Task) {
+    const task = Task.newTask({
+      ...newTask,
+      id: Id.new(),
+    });
+    const newList = listTasks?.add(task);
+
+    setListTasks(newList);
+    save(task);
+  }
+
+  function modifyTask(task: Task, attributes: TaskProps) {
+    const modifiedTask = task.clone({ ...attributes });
+    const newList = listTasks?.modifyTask(modifiedTask);
+
+    setListTasks(newList);
+    update(modifiedTask.id!, { ...attributes });
+  }
+
+  function destroyTask(taskId: string) {
+    const newList = listTasks?.remove(taskId);
+
+    setListTasks(newList);
+    destroy(taskId);
+  }
 
   function renderContent() {
     return (
       <Main withHeader>
         <UserInformation imageUrl={user?.imgUrl} username={user?.name!} />
-        <TaskArea />
+        <TaskArea
+          listTasks={listTasks}
+          onChangeModal={() => setShowModal(!showModal)}
+          onModifyTask={modifyTask}
+          onDelete={destroyTask}
+        />
       </Main>
     );
   }
@@ -39,6 +95,9 @@ const Home: NextPage = () => {
         />
         <title>Do It!</title>
       </Head>
+      {showModal && (
+        <Modal closeModal={() => setShowModal(false)} onSubmit={handleSubmit} />
+      )}
       {loading ? (
         renderLoading()
       ) : user?.email ? (

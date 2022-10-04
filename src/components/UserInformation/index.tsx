@@ -6,6 +6,7 @@ import {Heart} from "phosphor-react"
 interface UserInformationProps {
   imageUrl?: string;
   username: string;
+  tasksLength?: number
 }
 
 export function UserInformation(props: UserInformationProps) {

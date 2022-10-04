@@ -1,14 +1,44 @@
 import { Plus } from "phosphor-react";
+import ListTasks from "../../core/task/ListTasks";
+import { TaskProps } from "../../core/task/Task";
 import { Button } from "../basicComponents/Button";
 import { Task } from "../Task";
 
-export function TaskArea() {
+interface TaskAreaProps {
+  listTasks?: ListTasks;
+  onChangeModal?(): void;
+  onModifyTask?(task: TaskProps, attributes: TaskProps): void;
+  onDelete?(taskId: string): void;
+}
+
+export function TaskArea(props: TaskAreaProps) {
+  function renderTasks() {
+    return props.listTasks?.tasks?.map(task => {
+      return (
+        <Task
+          key={task.id}
+          id={task.id!}
+          title={task.title!}
+          content={task.description!}
+          completed={task.isCompleted}
+          onToggleStatus={() => {
+            props?.onModifyTask?.(task, {isCompleted: !task.isCompleted})
+          }}
+          onDelete={() => {
+            props?.onDelete?.(task.id!)
+          }}
+        />
+      );
+    });
+  }
+
   return (
     <div className="flex flex-col bg-black-task-area rounded-sm h-full relative">
       <header className="flex justify-between px-10 pt-7">
         <h1 className="font-bold text-2xl">Minhas Tarefas</h1>
         <div>
           <Button
+            onClick={props.onChangeModal}
             brightnessOnHover
             scale
             clickDownEffect
@@ -20,47 +50,10 @@ export function TaskArea() {
       </header>
       <div
         className={`
-        p-8 flex flex-col justify-start items-center gap-4 absolute top-[100px] right-0 overflow-y-scroll max-h-[calc(100%-80px)]
+        p-8 flex flex-col justify-start items-center gap-4 absolute top-[100px] right-0 overflow-y-scroll max-h-[calc(100%-80px)] w-full
       `}
       >
-        <Task title="Titulo Da tarefa" content="Lorem ipsum dolor sit amet" />
-        <Task
-          completed
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
-        <Task
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
-        <Task
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
-        <Task
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
-        <Task
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
-        <Task
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
-        <Task
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
-        <Task
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
-        <Task
-          title="Titulo Da tarefa"
-          content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae pariatur velit cumque eveniet labore error ipsa accusamus perferendis doloremque dolore ea ipsam, at quam, id iure, perspiciatis libero iste!"
-        />
+        {renderTasks()}
       </div>
     </div>
   );

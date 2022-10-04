@@ -15,14 +15,14 @@ import Authenticate from "./authenticate";
 
 const Home: NextPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [listTasks, setListTasks] = useState<ListTasks>();
   const [taskForEditing, setTaskForEditing] = useState<Task | null>(null);
   const { loading, user } = useAuth();
-  const { consult, save, update, destroy } = useTask();
+  const { consultTasks, saveTask, updateTask, setListTasks, listTasks, destroyTask } = useTask();
 
   useEffect(() => {
     (async function () {
-      const listTasks = await consult();
+      const listTasks = await consultTasks();
+      console.log(listTasks)
       setListTasks(
         new ListTasks({ tasks: listTasks, filter: TypeFilter.NONE })
       );
@@ -33,45 +33,20 @@ const Home: NextPage = () => {
     e.preventDefault();
 
     if (taskForEditing) {
-      modifyTask(taskForEditing, {
+      updateTask(taskForEditing, {
         title: inputData.title,
         description: inputData.description,
       } as Task);
 
       setTaskForEditing(null);
     } else {
-      createNewTask({
+      saveTask({
         title: inputData.title,
         description: inputData.description,
       } as Task);
     }
   }
 
-  function createNewTask(newTask: Task) {
-    const task = Task.newTask({
-      ...newTask,
-      id: Id.new(),
-    });
-    const newList = listTasks?.add(task);
-
-    setListTasks(newList);
-    save(task);
-  }
-
-  function modifyTask(task: Task, attributes: TaskProps) {
-    const modifiedTask = task.clone({ ...attributes });
-    const newList = listTasks?.modifyTask(modifiedTask);
-
-    setListTasks(newList);
-    update(modifiedTask.id!, { ...attributes });
-  }
-
-  function destroyTask(taskId: string) {
-    const newList = listTasks?.remove(taskId);
-
-    setListTasks(newList);
-    destroy(taskId);
-  }
 
   function renderContent() {
     return (
@@ -80,7 +55,7 @@ const Home: NextPage = () => {
         <TaskArea
           listTasks={listTasks}
           onChangeModal={() => setShowModal(!showModal)}
-          onModifyTask={modifyTask}
+          onModifyTask={updateTask}
           onDelete={destroyTask}
           editTask={setTaskForEditing}
         />

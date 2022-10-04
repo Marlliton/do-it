@@ -1,16 +1,23 @@
 import { XCircle } from "phosphor-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Task from "../../core/task/Task";
 import { Button } from "../basicComponents/Button";
 import { Input } from "../basicComponents/Input";
 
 interface ModalProps {
   closeModal(): void;
-  onSubmit(e: React.FormEvent, inputData: any): void;
+  onSubmit(e: React.FormEvent, inputData: any, task?: Task): void;
+  task: Task | null;
 }
 
 export function Modal(props: ModalProps) {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+
+  useEffect(() => {
+    setTitle(props.task?.title! ?? "");
+    setDescription(props.task?.description! ?? ""); //     >=
+  }, [props.task]);
 
   return (
     <div className="absolute top-0 left-0 w-full h-full backdrop-blur-xl z-10 flex items-center justify-center text-white">
@@ -27,7 +34,7 @@ export function Modal(props: ModalProps) {
             props.onSubmit(e, { title, description });
             setDescription("");
             setTitle("");
-            props.closeModal()
+            props.closeModal();
           }}
           className="bg-black-task-area p-5 rounded-lg flex flex-col gap-6 z-50"
         >
@@ -41,7 +48,7 @@ export function Modal(props: ModalProps) {
             onChange={titile => setTitle(titile)}
             value={title}
             required
-            />
+          />
           <Input
             type="text"
             id="title"

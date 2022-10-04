@@ -21,13 +21,13 @@ export function TaskProvider({ children }: TaskProviderProps) {
 
   async function consult(userEmail?: string): Promise<Task[]> {
     if (!userEmail) return [];
-    const result = await services.tasks.consult(userEmail);
+    const result = await services.tasks.consultTasks(userEmail);
     return result;
   }
 
   async function save(task: Task, userEmail?: string): Promise<void> {
     if (!task || !userEmail) return;
-    return await services.tasks.save(task, userEmail);
+    return await services.tasks.saveTask(task, userEmail);
   }
 
   async function update(
@@ -36,12 +36,12 @@ export function TaskProvider({ children }: TaskProviderProps) {
     userEmail?: string
   ): Promise<void> {
     if (!taskId || !attributes || !userEmail) return;
-    await services.tasks.update(taskId, attributes, userEmail);
+    await services.tasks.updateTask(taskId, attributes, userEmail);
   }
 
   async function destroy(taskId: string, userEmail?: string): Promise<void> {
     if (!taskId || !userEmail) return;
-    return await services.tasks.delete(taskId, userEmail);
+    return await services.tasks.destroyTask(taskId, userEmail);
   }
 
   return (

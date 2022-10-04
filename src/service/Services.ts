@@ -2,7 +2,6 @@ import TaskCollection from "../adapter/db/TaskCollection";
 import { AuthProvider } from "../core/auth/AuthPorvider";
 import AuthService from "../core/auth/AuthSevice";
 import { DataProvider } from "../core/data";
-import DatabaseService from "../core/data/DatabaseService";
 import ServiceTask from "../core/task/ServiceTask";
 
 interface ServicesProps {
@@ -22,8 +21,6 @@ export default class Services {
   }
 
   get tasks(): ServiceTask {
-    return new ServiceTask(
-      new TaskCollection(this._props.database)
-    )
+    return new ServiceTask(new TaskCollection(this._props.database));
   }
 }

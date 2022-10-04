@@ -1,21 +1,22 @@
 import { Plus } from "phosphor-react";
 import ListTasks from "../../core/task/ListTasks";
-import { TaskProps } from "../../core/task/Task";
+import Task, { TaskProps } from "../../core/task/Task";
 import { Button } from "../basicComponents/Button";
-import { Task } from "../Task";
+import { TaskComponent } from "../Task";
 
 interface TaskAreaProps {
   listTasks?: ListTasks;
   onChangeModal?(): void;
-  onModifyTask?(task: TaskProps, attributes: TaskProps): void;
+  onModifyTask?(task: Task, attributes: TaskProps): void;
   onDelete?(taskId: string): void;
+  editTask?(task: Task | null): void;
 }
 
 export function TaskArea(props: TaskAreaProps) {
   function renderTasks() {
     return props.listTasks?.tasks?.map(task => {
       return (
-        <Task
+        <TaskComponent
           key={task.id}
           id={task.id!}
           title={task.title!}
@@ -26,6 +27,10 @@ export function TaskArea(props: TaskAreaProps) {
           }}
           onDelete={() => {
             props?.onDelete?.(task.id!)
+          }}
+          onEdite={() => {
+            props?.onChangeModal?.();
+            props?.editTask?.(task)
           }}
         />
       );

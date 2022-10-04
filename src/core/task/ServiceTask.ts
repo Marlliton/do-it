@@ -7,18 +7,18 @@ export default class ServiceTask {
     this._repo = repo;
   }
 
-  async consult(userEmail: string): Promise<Task[]> {
-    const result = await this._repo.consult(userEmail);
+  async consultTasks(userEmail: string): Promise<Task[]> {
+    const result = await this._repo.consultTasks(userEmail);
     // console.log("🚀 ~ file: ServiceTask.ts ~ line 12 ~ ServiceTask ~ consult ~ result", result)
     return result;
   }
-  async save(task: Task | TaskProps, userEmail: string): Promise<void> {
-    return await this._repo.save(task, userEmail);
+  async saveTask(task: Task | TaskProps, userEmail: string): Promise<void> {
+    return await this._repo.saveTask(task, userEmail);
   }
-  async update(taskId: string, attributes: any, userEmail: string): Promise<void> {
-    return await this._repo.update(taskId, attributes, userEmail);
+  async updateTask(taskId: string, attributes: any, userEmail: string): Promise<void> {
+    return await this._repo.updateTask(taskId, attributes, userEmail);
   }
-  async delete(taskId: string, userEmail: string): Promise<void> {
-    return await this._repo.delete(taskId, userEmail);
+  async destroyTask(taskId: string, userEmail: string): Promise<void> {
+    return await this._repo.destroyTask(taskId, userEmail);
   }
 }

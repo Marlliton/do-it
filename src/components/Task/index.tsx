@@ -8,9 +8,10 @@ interface TaskProps {
   completed?: boolean;
   onToggleStatus?(): void;
   onDelete?(): void;
+  onEdite?(): void;
 }
 
-export function Task(props: TaskProps) {
+export function TaskComponent(props: TaskProps) {
   return (
     <div
       className={`
@@ -36,7 +37,7 @@ export function Task(props: TaskProps) {
         <Button onClick={props.onDelete} scale clickUpEffect className="hover:text-task-title">
           <Trash size={24} />
         </Button>
-        <Button scale clickUpEffect className="hover:text-task-title">
+        <Button onClick={props.onEdite} scale clickUpEffect className="hover:text-task-title">
           <PencilSimpleLine size={24} />
         </Button>
         <Button onClick={props.onToggleStatus} scale clickUpEffect className="hover:text-task-title">

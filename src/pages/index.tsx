@@ -16,6 +16,7 @@ import Authenticate from "./authenticate";
 const Home: NextPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [listTasks, setListTasks] = useState<ListTasks>();
+  const [taskForEditing, setTaskForEditing] = useState<Task | null>(null);
   const { loading, user } = useAuth();
   const { consult, save, update, destroy } = useTask();
 
@@ -30,10 +31,20 @@ const Home: NextPage = () => {
 
   function handleSubmit(e: React.FormEvent, inputData: any) {
     e.preventDefault();
-    createNewTask({
-      title: inputData.title,
-      description: inputData.description,
-    } as Task);
+
+    if (taskForEditing) {
+      modifyTask(taskForEditing, {
+        title: inputData.title,
+        description: inputData.description,
+      } as Task);
+
+      setTaskForEditing(null);
+    } else {
+      createNewTask({
+        title: inputData.title,
+        description: inputData.description,
+      } as Task);
+    }
   }
 
   function createNewTask(newTask: Task) {
@@ -71,6 +82,7 @@ const Home: NextPage = () => {
           onChangeModal={() => setShowModal(!showModal)}
           onModifyTask={modifyTask}
           onDelete={destroyTask}
+          editTask={setTaskForEditing}
         />
       </Main>
     );
@@ -96,7 +108,14 @@ const Home: NextPage = () => {
         <title>Do It!</title>
       </Head>
       {showModal && (
-        <Modal closeModal={() => setShowModal(false)} onSubmit={handleSubmit} />
+        <Modal
+          task={taskForEditing}
+          closeModal={() => {
+            setShowModal(false);
+            setTaskForEditing(null);
+          }}
+          onSubmit={handleSubmit}
+        />
       )}
       {loading ? (
         renderLoading()

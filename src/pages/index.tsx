@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     (async function () {
       const listTasks = await consultTasks();
-      console.log(listTasks)
+      
       setListTasks(
         new ListTasks({ tasks: listTasks, filter: TypeFilter.NONE })
       );

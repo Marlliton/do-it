@@ -1,13 +1,17 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
+import Id from "../core/shared/Id";
+import ListTasks from "../core/task/ListTasks";
 import Task from "../core/task/Task";
 import { useAuth } from "../hooks/useAuth";
 import { services } from "../service";
 
 interface TaskContextProps {
-  consult(userEmail?: string): Promise<Task[]>;
-  save(task: Task, userEmail?: string): Promise<void>;
-  update(taskId: string, attributes: any, userEmail?: string): Promise<void>;
-  destroy(taskId: string, userEmail?: string): Promise<void>;
+  consultTasks(userEmail?: string): Promise<Task[]>;
+  saveTask(task: Task): Promise<void>;
+  updateTask(task: Task, attributes: any): Promise<void>;
+  destroyTask(taskId: string, userEmail?: string): Promise<void>;
+  setListTasks(listTasks: ListTasks): void;
+  listTasks?: ListTasks;
 }
 
 interface TaskProviderProps {
@@ -17,48 +21,56 @@ interface TaskProviderProps {
 const TaskContext = createContext({} as TaskContextProps);
 
 export function TaskProvider({ children }: TaskProviderProps) {
+  const [listTasks, setListTasks] = useState<ListTasks>();
+
   const { user } = useAuth();
 
-  async function consult(userEmail?: string): Promise<Task[]> {
-    if (!userEmail) return [];
-    const result = await services.tasks.consultTasks(userEmail);
+  async function consultTasks(): Promise<Task[]> {
+    const result = await services.tasks.consultTasks(user?.email!);
     return result;
   }
 
-  async function save(task: Task, userEmail?: string): Promise<void> {
-    if (!task || !userEmail) return;
-    return await services.tasks.saveTask(task, userEmail);
+  async function saveTask(newTask: Task) {
+    const task = Task.newTask({
+      ...newTask,
+      id: Id.new(),
+    });
+    const newList = listTasks?.add(task);
+
+    setListTasks(newList);
+    return await services.tasks.saveTask(task, user?.email!);
   }
 
-  async function update(
+  async function updateTask(task: Task, attributes: any): Promise<void> {
+    if (!task || !attributes) return;
+
+    const updatedTask = task.clone({ ...attributes });
+    const newList = listTasks?.modifyTask(updatedTask);
+
+    setListTasks(newList);
+    await services.tasks.updateTask(task.id!, attributes, user?.email!);
+  }
+
+  async function destroyTask(
     taskId: string,
-    attributes: any,
     userEmail?: string
   ): Promise<void> {
-    if (!taskId || !attributes || !userEmail) return;
-    await services.tasks.updateTask(taskId, attributes, userEmail);
-  }
-
-  async function destroy(taskId: string, userEmail?: string): Promise<void> {
     if (!taskId || !userEmail) return;
+    const newList = listTasks?.remove(taskId);
+
+    setListTasks(newList);
     return await services.tasks.destroyTask(taskId, userEmail);
   }
 
   return (
     <TaskContext.Provider
       value={{
-        consult: () => {
-          return consult(user?.email!);
-        },
-        save: (task: Task) => {
-          return save(task, user?.email!);
-        },
-        update: (taskId: string, attributes: any) => {
-          return update(taskId, attributes, user?.email!);
-        },
-        destroy: (taskId: string) => {
-          return destroy(taskId, user?.email!);
-        },
+        listTasks,
+        setListTasks,
+        consultTasks,
+        saveTask,
+        updateTask,
+        destroyTask,
       }}
     >
       {children}

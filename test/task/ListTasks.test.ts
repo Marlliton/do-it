@@ -55,7 +55,11 @@ describe("Deve testar a lista de tarefas", () => {
       filter: TypeFilter.COMPLETED,
     });
     
-    const completedTasks = listTasks.filterByCompleted();
+    let completedTasks = listTasks.filterByCompleted();
+    completedTasks = listTasks.noFilter();
+    completedTasks = listTasks.filterByPending();
+    completedTasks = listTasks.noFilter();
+    completedTasks = listTasks.filterByCompleted();
     expect(completedTasks.tasks.length).toBe(1);
   });
 

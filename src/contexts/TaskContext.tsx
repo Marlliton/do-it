@@ -21,7 +21,7 @@ interface TaskProviderProps {
 const TaskContext = createContext({} as TaskContextProps);
 
 export function TaskProvider({ children }: TaskProviderProps) {
-  const [listTasks, setListTasks] = useState<ListTasks>();
+  const [ listTasks, setListTasks ] = useState<ListTasks>();
 
   const { user } = useAuth();
 

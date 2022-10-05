@@ -26,15 +26,15 @@ export default class ListTasks {
   }
 
   remove(taskId: string): ListTasks {
-    const allTasks = this.tasks.filter(task => task.id !== taskId);
+    const allTasks = this._props.tasks.filter(task => task.id !== taskId);
     return new ListTasks({ tasks: allTasks, filter: this.filter });
   }
 
   modifyTask(modifiedTask: Task): ListTasks {
-    const allTasks = this.tasks.map(task => {
+    const allTasks = this._props.tasks.map(task => {
       return task.id === modifiedTask.id ? modifiedTask : task;
     });
-
+    
     return new ListTasks({ tasks: allTasks, filter: this.filter });
   }
 

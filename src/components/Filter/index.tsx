@@ -1,14 +1,11 @@
 import { ArrowCircleLeft, ArrowCircleRight, Faders } from "phosphor-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TypeFilter } from "../../core/shared/TypeFilter";
 import { useTask } from "../../hooks/useTask";
 import { Button } from "../basicComponents/Button";
 
-interface FilterProps {}
-
-export function Filter(props: FilterProps) {
+export function Filter() {
   const [openFilters, setOpenFilters] = useState<boolean>(false);
-
   const { listTasks, setListTasks } = useTask();
 
   return (
@@ -22,7 +19,7 @@ export function Filter(props: FilterProps) {
         >
           {openFilters ? (
             <ArrowCircleRight size={30} weight="bold" />
-            ) : (
+          ) : (
             <ArrowCircleLeft size={30} weight="bold" />
           )}
         </Button>
@@ -37,7 +34,7 @@ export function Filter(props: FilterProps) {
         <Button
           className={`h-full flex flex-1 hover:bg-my-gradient hover:text-black ${
             listTasks?.filter === TypeFilter.COMPLETED &&
-            "bg-my-gradient text-black"
+            "bg-my-gradient text-black brightness-90"
           }`}
           onClick={() => {
             const completedTasks = listTasks?.filterByCompleted();
@@ -48,7 +45,8 @@ export function Filter(props: FilterProps) {
         </Button>
         <Button
           className={`h-full flex flex-1 hover:bg-my-gradient hover:text-black ${
-            listTasks?.filter === TypeFilter.NONE && "bg-my-gradient text-black"
+            listTasks?.filter === TypeFilter.NONE &&
+            "bg-my-gradient text-black brightness-90"
           }`}
           onClick={() => {
             const allTasks = listTasks?.noFilter();
@@ -60,7 +58,7 @@ export function Filter(props: FilterProps) {
         <Button
           className={`h-full flex flex-1 hover:bg-my-gradient hover:text-black ${
             listTasks?.filter === TypeFilter.PENDING &&
-            "bg-my-gradient text-black"
+            "bg-my-gradient text-black brightness-90"
           }`}
           onClick={() => {
             const pendingTasks = listTasks?.filterByPending();

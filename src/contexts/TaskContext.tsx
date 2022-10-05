@@ -9,7 +9,7 @@ interface TaskContextProps {
   consultTasks(userEmail?: string): Promise<Task[]>;
   saveTask(task: Task): Promise<void>;
   updateTask(task: Task, attributes: any): Promise<void>;
-  destroyTask(taskId: string, userEmail?: string): Promise<void>;
+  destroyTask(taskId: string): Promise<void>;
   setListTasks(listTasks: ListTasks): void;
   listTasks?: ListTasks;
 }
@@ -51,15 +51,12 @@ export function TaskProvider({ children }: TaskProviderProps) {
     await services.tasks.updateTask(task.id!, attributes, user?.email!);
   }
 
-  async function destroyTask(
-    taskId: string,
-    userEmail?: string
-  ): Promise<void> {
-    if (!taskId || !userEmail) return;
+  async function destroyTask(taskId: string): Promise<void> {
+    if (!taskId) return;
     const newList = listTasks?.remove(taskId);
 
     setListTasks(newList);
-    return await services.tasks.destroyTask(taskId, userEmail);
+    return await services.tasks.destroyTask(taskId, user?.email!);
   }
 
   return (

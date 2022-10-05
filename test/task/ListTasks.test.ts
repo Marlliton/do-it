@@ -29,27 +29,34 @@ describe("Deve testar a lista de tarefas", () => {
   test("Deve trazer todas as tarefas", () => {
     const listTasks = new ListTasks({
       tasks: [task1, task2, task3, task4],
-      filter: TypeFilter.NONE,
+      filter: TypeFilter.COMPLETED,
     });
 
-    expect(listTasks.tasks.length).toBe(4);
+    const allTasks = listTasks.noFilter();
+
+    expect(allTasks.tasks.length).toBe(4);
   });
 
   test("Deve filtrar por pendentes", () => {
     const listTasks = new ListTasks({
       tasks: [task1, task2, task3, task4],
-      filter: TypeFilter.PENDING,
+      filter: TypeFilter.NONE,
     });
 
-    expect(listTasks.tasks.length).toBe(3);
+    const pendingTasks = listTasks.filterByPending();
+    
+    expect(pendingTasks.tasks.length).toBe(3);
+    pendingTasks.tasks.forEach(t => expect(t.isCompleted).toBe(false));
   });
-  test("Deve filtrar por pendentes", () => {
+
+  test("Deve filtrar por completadas", () => {
     const listTasks = new ListTasks({
       tasks: [task1, task2, task3, task4],
       filter: TypeFilter.COMPLETED,
     });
-
-    expect(listTasks.tasks.length).toBe(1);
+    
+    const completedTasks = listTasks.filterByCompleted();
+    expect(completedTasks.tasks.length).toBe(1);
   });
 
   test("Deve os atributos de uma tarefa", () => {
@@ -110,7 +117,7 @@ describe("Deve testar a lista de tarefas", () => {
     });
 
     const newListTasks = listTasks.remove(task.id!);
-    const removedTask = newListTasks.tasks.find(t => t.id === task.id)
+    const removedTask = newListTasks.tasks.find(t => t.id === task.id);
     expect(removedTask).toBe(undefined);
-  })
+  });
 });

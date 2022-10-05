@@ -5,10 +5,9 @@ import { Modal } from "../components/Modal";
 import { TaskArea } from "../components/TaskArea";
 import { Main } from "../components/template/Main";
 import { UserInformation } from "../components/UserInformation";
-import Id from "../core/shared/Id";
 import { TypeFilter } from "../core/shared/TypeFilter";
 import ListTasks from "../core/task/ListTasks";
-import Task, { TaskProps } from "../core/task/Task";
+import Task from "../core/task/Task";
 import { useAuth } from "../hooks/useAuth";
 import { useTask } from "../hooks/useTask";
 import Authenticate from "./authenticate";
@@ -21,11 +20,13 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     (async function () {
-      const listTasks = await consultTasks();
-      
-      setListTasks(
-        new ListTasks({ tasks: listTasks, filter: TypeFilter.NONE })
-      );
+      if (user?.email) {
+        const listTasks = await consultTasks();
+
+        setListTasks(
+          new ListTasks({ tasks: listTasks, filter: TypeFilter.NONE })
+        );
+      }
     })();
   }, [user?.email]);
 

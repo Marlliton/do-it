@@ -2,6 +2,7 @@ import { MyImage } from "../basicComponents/Image";
 import defaultUserImage from "public/images/profile.svg";
 import mediumLogo from "public/images/medium_logo.svg";
 import {Heart} from "phosphor-react"
+import { Filter } from "../Filter";
 
 interface UserInformationProps {
   imageUrl?: string;
@@ -16,14 +17,18 @@ export function UserInformation(props: UserInformationProps) {
       hidden  md:flex flex-col justify-between 
     `}
     >
-      <div className="p-5">
-        <MyImage
-          src={props.imageUrl ?? defaultUserImage}
-          alt="Imagem de perfil"
-          classNames="h-28 w-28 rounded-full overflow-hidden"
-          size={100}
-        />
-        <h1 className="font-bold pt-5 text-2xl">Olá, {props.username}!</h1>
+      <div className="flex flex-col">
+        <div className="p-5">
+          <MyImage
+            src={props.imageUrl ?? defaultUserImage}
+            alt="Imagem de perfil"
+            classNames="h-28 w-28 rounded-full overflow-hidden"
+            size={100}
+          />
+          <h1 className="font-bold pt-5 text-2xl">Olá, {props.username}!</h1>
+        </div>
+
+        <Filter />
       </div>
       <div
         className={`

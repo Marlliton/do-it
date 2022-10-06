@@ -1,5 +1,5 @@
-import { ArrowCircleLeft, ArrowCircleRight, Faders } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { ArrowCircleLeft, ArrowCircleRight } from "phosphor-react";
+import { useState } from "react";
 import { TypeFilter } from "../../core/shared/TypeFilter";
 import { useTask } from "../../hooks/useTask";
 import { Button } from "../basicComponents/Button";
@@ -14,7 +14,7 @@ export function Filter() {
         <Button
           onClick={() => setOpenFilters(!openFilters)}
           className={`
-          mr-1 text-white/50 rounded-full hover:bg-global-bg-and-task-bg hover:text-task-title p-1 flex flex-1 
+          mr-1 text-white/50 rounded-full hover:bg-task-title/10 hover:text-task-title p-1 flex flex-1 
         `}
         >
           {openFilters ? (

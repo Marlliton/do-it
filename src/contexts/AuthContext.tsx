@@ -39,6 +39,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const user = await services.auth.loginWithGoogle();
       configureSection(user)
+      router.push("/dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -47,6 +48,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function logout() {
     configureSection(null)
     await services.auth.logout();
+    router.push("/")
     setLoading(false)
   }
 
@@ -61,6 +63,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     if(Cookies.get("do-it")) {
       const unsubscribe = services.auth.observeUserChanged(configureSection)
+      router.push("/dashboard");
       return unsubscribe()
     } else {
       setLoading(false)

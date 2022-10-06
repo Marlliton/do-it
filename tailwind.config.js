@@ -39,23 +39,10 @@ module.exports = {
             visibility: "hidden",
           },
         },
-        "enter-button-filter-select": {
-          "0%": {
-            opacity: 0,
-            visibility: "hidden",
-          },
-          "100%": {
-            opacity: 1,
-            width: "46px",
-            height: "46px",
-            visibility: "visible",
-          },
-        },
       },
       animation: {
         "enter-filter-animation": "enter-filter-animation .8s forwards",
         "leave-filter-animation": "leave-filter-animation .8s forwards",
-        "enter-button-filter-select": "enter-button-filter-select 4s",
       },
       backgroundImage: {
         "my-gradient":

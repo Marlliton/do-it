@@ -1,107 +1,63 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import React, { useEffect, useState } from "react";
-import { Modal } from "../components/Modal";
-import { TaskArea } from "../components/TaskArea";
+import { NextPage } from "next";
+import { GoogleLogo } from "phosphor-react";
+import desktopLogo from "public/images/desktop_logo.svg";
+import { Button } from "../components/basicComponents/Button";
+import { MyImage } from "../components/basicComponents/Image";
 import { Main } from "../components/template/Main";
-import { UserInformation } from "../components/UserInformation";
-import { TypeFilter } from "../core/shared/TypeFilter";
-import ListTasks from "../core/task/ListTasks";
-import Task from "../core/task/Task";
 import { useAuth } from "../hooks/useAuth";
-import { useTask } from "../hooks/useTask";
-import Authenticate from "./authenticate";
 
-const Home: NextPage = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [taskForEditing, setTaskForEditing] = useState<Task | null>(null);
-  const { loading, user } = useAuth();
-  const { consultTasks, saveTask, updateTask, setListTasks, listTasks, destroyTask } = useTask();
-
-  useEffect(() => {
-    (async function () {
-      if (user?.email) {
-        const listTasks = await consultTasks();
-
-        setListTasks(
-          new ListTasks({ tasks: listTasks, filter: TypeFilter.NONE })
-        );
-      }
-    })();
-  }, [user?.email]);
-
-  function handleSubmit(e: React.FormEvent, inputData: any) {
-    e.preventDefault();
-
-    if (taskForEditing) {
-      updateTask(taskForEditing, {
-        title: inputData.title,
-        description: inputData.description,
-      } as Task);
-
-      setTaskForEditing(null);
-    } else {
-      saveTask({
-        title: inputData.title,
-        description: inputData.description,
-      } as Task);
-    }
-  }
-
-
-  function renderContent() {
-    return (
-      <Main withHeader>
-        <UserInformation imageUrl={user?.imgUrl} username={user?.name!} />
-        <TaskArea
-          listTasks={listTasks}
-          onChangeModal={() => setShowModal(!showModal)}
-          onModifyTask={updateTask}
-          onDelete={destroyTask}
-          editTask={setTaskForEditing}
-        />
-      </Main>
-    );
-  }
-
-  function renderLoading() {
-    return (
-      <div className="absolute w-full h-full top-0 left-0 bg-global-bg-and-task-bg flex justify-center items-center">
-        <h1 className="text-9xl">Carregando </h1>
-      </div>
-    );
-  }
+const Authenticate: NextPage = () => {
+  const {loginWithGoogle} = useAuth()
 
   return (
-    <div>
-      <Head>
-        <meta name="description" content="Seu app de tarefas favorito." />
-        <link
-          rel="shortcut icon"
-          href="images/small_logo_mobile.svg"
-          type="image/svg"
-        />
-        <title>Do It!</title>
-      </Head>
-      {showModal && (
-        <Modal
-          task={taskForEditing}
-          closeModal={() => {
-            setShowModal(false);
-            setTaskForEditing(null);
-          }}
-          onSubmit={handleSubmit}
-        />
-      )}
-      {loading ? (
-        renderLoading()
-      ) : user?.email ? (
-        renderContent()
-      ) : (
-        <Authenticate />
-      )}
-    </div>
+    <Main>
+      <div className="flex flex-col">
+        <h1 className="font-extrabold text-6xl pt-16 pl-12">Do it!</h1>
+
+        <div className="flex flex-col flex-1 items-center justify-center relative">
+          <div>
+            <h2 className="font-semibold text-base text-center pb-5">
+              Faça login e aproveite!
+            </h2>
+            <Button
+              clickDownEffect
+              brightnessOnHover
+              className="py-3 px-7 bg-my-gradient rounded-lg"
+              onClick={loginWithGoogle}
+            >
+              <span className="font-semibold text-black-task-area">
+                Entrar com o Google
+              </span>{" "}
+              <GoogleLogo
+                color="#16161C"
+                size={30}
+                weight="bold"
+                className="ml-4"
+              />
+            </Button>
+          </div>
+          <span
+            className={`
+            font-extralight text-xs absolute left-2 bottom-5
+          `}
+          >
+            Não se preocupe, nós não guardamos nenhum dado seu!
+          </span>
+        </div>
+      </div>
+      <div className="relative hidden md:block">
+        <div
+          className={`absolute top-0 left-0 w-full h-full flex justify-center items-center`}
+        >
+          <MyImage
+            src={desktopLogo}
+            alt="Desktop logo"
+            classNames="w-96 h-96"
+          />
+        </div>
+      </div>
+    </Main>
   );
 };
 
-export default Home;
+export default Authenticate;

@@ -25,7 +25,7 @@ export function Modal(props: ModalProps) {
         <Button
           onClick={props.closeModal}
           clickDownEffect
-          className="absolute right-4 top-4 text-gray/80 rounded-full hover:bg-global-bg-and-task-bg p-1 hover:text-task-title "
+          className="absolute right-4 top-4 text-gray/80 rounded-full hover:bg-task-title/10 p-1 hover:text-task-title "
         >
           <XCircle size={30} />
         </Button>

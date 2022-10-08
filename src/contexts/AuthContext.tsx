@@ -26,19 +26,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function configureSection(user: User | null) {
     if (user?.email) {
       setUser(user);
-      setLoading(false);
       handleCookies(true)
     } else {
       setUser(null);
-      setLoading(true);
       handleCookies(false)
     }
   }
-
+  
   async function loginWithGoogle() {
+    setLoading(true);
     try {
       const user = await services.auth.loginWithGoogle();
       configureSection(user)
+      setLoading(false);
       router.push("/dashboard");
     } catch (error) {
       console.log(error);
@@ -52,9 +52,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setLoading(false)
   }
 
-  function handleCookies(isToRegister: boolean = false) {
-    if (isToRegister) {
-      Cookies.set("do-it", `${isToRegister}`, { expires: 1 });
+  function handleCookies(toSave: boolean = false) {
+    if (toSave) {
+      Cookies.set("do-it", `${toSave}`, { expires: 1 });
     } else {
       Cookies.remove("do-it");
     }

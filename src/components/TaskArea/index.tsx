@@ -55,7 +55,7 @@ export function TaskArea(props: TaskAreaProps) {
       </header>
       <div
         className={`
-        p-8 flex flex-col justify-start items-center gap-4 absolute top-[100px] right-0 overflow-y-scroll max-h-[calc(100%-80px)] w-full
+        no-scrollbar p-8 flex flex-col justify-start items-center gap-4 absolute top-[100px] right-0 overflow-y-scroll max-h-[calc(100%-80px)] w-full
       `}
       >
         {renderTasks()}

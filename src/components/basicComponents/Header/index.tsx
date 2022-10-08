@@ -4,7 +4,11 @@ import arrowLeft from "public/images/back.svg";
 import { Button } from "../Button";
 import { useAuth } from "../../../hooks/useAuth";
 
-export function Header() {
+interface HeaderProps {
+  children?: any;
+}
+
+export function Header({ children }: HeaderProps) {
   const { logout } = useAuth();
 
   return (
@@ -27,13 +31,13 @@ export function Header() {
         />
         <p>Sair</p>
       </Button>
-      <MyImage
-        src={logo}
-        alt="Logo da aplicação"
-        classNames={`
+        <MyImage
+          src={logo}
+          alt="Logo da aplicação"
+          classNames={`
             w-[35px] h-[35px]
           `}
-      />
+        />
     </header>
   );
 }

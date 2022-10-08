@@ -33,7 +33,7 @@ export default class FirebaseAuth implements AuthProvider {
       imgUrl: response.user.photoURL!,
     };
 
-    return this.normalizedUser(user);
+    return this._normalizedUser(user);
   }
 
   async logout(): Promise<void> {
@@ -49,11 +49,11 @@ export default class FirebaseAuth implements AuthProvider {
         imgUrl: user?.photoURL!,
       };
 
-      observer(this.normalizedUser(userUpdated));
+      observer(this._normalizedUser(userUpdated));
     });
   }
 
-  private normalizedUser(user: UserProps): User {
+  private _normalizedUser(user: UserProps): User {
     return new User({ ...user });
   }
 }

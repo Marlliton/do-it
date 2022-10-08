@@ -38,16 +38,6 @@ export default class ListTasks {
     return new ListTasks({ tasks: allTasks, filter: this.filter });
   }
 
-  private _applyFilter(tasks: Task[]): Task[] {
-    if (this.filter === TypeFilter.COMPLETED) {
-      return this._filterByCompleted(tasks);
-    } else if (this.filter === TypeFilter.PENDING) {
-      return this._filterByPending(tasks);
-    }
-
-    return [...tasks];
-  }
-
   noFilter(): ListTasks {
     return new ListTasks({ tasks: this._props.tasks, filter: TypeFilter.NONE });
   }
@@ -58,6 +48,16 @@ export default class ListTasks {
 
   filterByCompleted(): ListTasks {
     return new ListTasks({ tasks: this._props.tasks, filter: TypeFilter.COMPLETED });
+  }
+
+  private _applyFilter(tasks: Task[]): Task[] {
+    if (this.filter === TypeFilter.COMPLETED) {
+      return this._filterByCompleted(tasks);
+    } else if (this.filter === TypeFilter.PENDING) {
+      return this._filterByPending(tasks);
+    }
+
+    return [...tasks];
   }
 
   private _filterByCompleted(tasks: Task[]): Task[] {

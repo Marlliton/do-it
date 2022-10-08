@@ -1,14 +1,16 @@
 import { NextPage } from "next";
-import { GoogleLogo } from "phosphor-react";
+import { GoogleLogo, SpinnerGap } from "phosphor-react";
 import desktopLogo from "public/images/desktop_logo.svg";
+import { useEffect } from "react";
 import { Button } from "../components/basicComponents/Button";
 import { MyImage } from "../components/basicComponents/Image";
 import { Main } from "../components/template/Main";
 import { useAuth } from "../hooks/useAuth";
 
 const Authenticate: NextPage = () => {
-  const {loginWithGoogle} = useAuth()
+  const { loginWithGoogle, loading } = useAuth();
 
+  useEffect(() => console.log(loading), [loading]);
   return (
     <Main>
       <div className="flex flex-col">
@@ -28,12 +30,21 @@ const Authenticate: NextPage = () => {
               <span className="font-semibold text-black-task-area">
                 Entrar com o Google
               </span>{" "}
-              <GoogleLogo
-                color="#16161C"
-                size={30}
-                weight="bold"
-                className="ml-4"
-              />
+              {loading ? (
+                <SpinnerGap
+                  color="#16161C"
+                  size={30}
+                  weight="bold"
+                  className="ml-4 animate-spin"
+                />
+              ) : (
+                <GoogleLogo
+                  color="#16161C"
+                  size={30}
+                  weight="bold"
+                  className="ml-4"
+                />
+              )}
             </Button>
           </div>
           <span

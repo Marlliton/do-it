@@ -14,7 +14,7 @@ import { useTask } from "../hooks/useTask";
 const Dashboard: NextPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [taskForEditing, setTaskForEditing] = useState<Task | null>(null);
-  const { loading, user } = useAuth();
+  const { user } = useAuth();
   const { consultTasks, saveTask, updateTask, setListTasks, listTasks, destroyTask} = useTask();
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const Dashboard: NextPage = () => {
   function renderContent() {
     return (
       <Main withHeader>
-        <UserInformation imageUrl={user?.imgUrl} username={user?.name!} />
+        <UserInformation total={listTasks?.tasks.length} imageUrl={user?.imgUrl} username={user?.name!} />
         <TaskArea
           listTasks={listTasks}
           onChangeModal={() => setShowModal(!showModal)}

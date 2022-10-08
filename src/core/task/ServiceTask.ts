@@ -8,16 +8,17 @@ export default class ServiceTask {
   }
 
   async consultTasks(userEmail: string): Promise<Task[]> {
-    const result = await this._repo.consultTasks(userEmail);
-    // console.log("🚀 ~ file: ServiceTask.ts ~ line 12 ~ ServiceTask ~ consult ~ result", result)
-    return result;
+    return await this._repo.consultTasks(userEmail);
   }
+
   async saveTask(task: Task | TaskProps, userEmail: string): Promise<void> {
     return await this._repo.saveTask(task, userEmail);
   }
+
   async updateTask(taskId: string, attributes: any, userEmail: string): Promise<void> {
     return await this._repo.updateTask(taskId, attributes, userEmail);
   }
+  
   async destroyTask(taskId: string, userEmail: string): Promise<void> {
     return await this._repo.destroyTask(taskId, userEmail);
   }

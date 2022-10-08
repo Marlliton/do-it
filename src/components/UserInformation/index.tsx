@@ -1,13 +1,13 @@
 import { MyImage } from "../basicComponents/Image";
 import defaultUserImage from "public/images/profile.svg";
 import mediumLogo from "public/images/medium_logo.svg";
-import {Heart} from "phosphor-react"
+import { Heart } from "phosphor-react";
 import { Filter } from "../Filter";
 
 interface UserInformationProps {
   imageUrl?: string;
   username: string;
-  tasksLength?: number
+  total?: number;
 }
 
 export function UserInformation(props: UserInformationProps) {
@@ -29,6 +29,13 @@ export function UserInformation(props: UserInformationProps) {
         </div>
 
         <Filter />
+
+        <div className="border-t-2 mt-6 p-5 border-black-task-area ">
+          <h2 className="font-semibold text-xl">
+            Total de tarefas:{" "}
+            <span className="font-extralight">{props.total ?? 0}</span>
+          </h2>
+        </div>
       </div>
       <div
         className={`

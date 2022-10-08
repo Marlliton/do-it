@@ -1,8 +1,8 @@
 import { MyImage } from "../basicComponents/Image";
-import defaultUserImage from "public/images/profile.svg";
 import mediumLogo from "public/images/medium_logo.svg";
 import { Heart } from "phosphor-react";
 import { Filter } from "../Filter";
+import { Avatar } from "../Avatar";
 
 interface UserInformationProps {
   imageUrl?: string;
@@ -19,16 +19,15 @@ export function UserInformation(props: UserInformationProps) {
     >
       <div className="flex flex-col">
         <div className="p-5">
-          <MyImage
-            src={props.imageUrl ?? defaultUserImage}
+          <Avatar
             alt="Imagem de perfil"
-            classNames="h-28 w-28 rounded-full overflow-hidden"
-            size={100}
+            imageUrl={props.imageUrl}
+            className="h-28 w-28 "
           />
           <h1 className="font-bold pt-5 text-2xl">Olá, {props.username}!</h1>
         </div>
 
-        <Filter />
+        <Filter startOpen />
 
         <div className="border-t-2 mt-6 p-5 border-black-task-area ">
           <h2 className="font-semibold text-xl">

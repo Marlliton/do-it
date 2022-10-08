@@ -24,7 +24,7 @@ export function DropDownMenu() {
         />
       </Button>
       {showDropDown && (
-        <div className="absolute flex flex-col top-11 -left-28 min-w-min z-10 bg-gray rounded-md p-3 ">
+        <div className="absolute flex flex-col top-11 right-0 min-w-min z-10 bg-gray rounded-md p-3 ">
           <div className="whitespace-nowrap">{user?.name}</div>
           <span className="block h-[2px] w-full bg-global-bg-and-task-bg/30"></span>
 

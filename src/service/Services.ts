@@ -1,4 +1,4 @@
-import TaskCollection from "../adapter/db/TaskCollection";
+import TaskCollection from "./adapter/collections/TaskCollection";
 import { AuthProvider } from "../core/auth/AuthPorvider";
 import AuthService from "../core/auth/AuthSevice";
 import { DataProvider } from "../core/data";

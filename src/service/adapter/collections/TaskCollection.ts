@@ -1,6 +1,6 @@
-import { DataProvider } from "../../core/data";
-import Task, { TaskProps } from "../../core/task/Task";
-import { TaskRepository } from "../../core/task/TaskRepository";
+import { DataProvider } from "../../../core/data";
+import Task, { TaskProps } from "../../../core/task/Task";
+import { TaskRepository } from "../../../core/task/TaskRepository";
 
 export default class TaskCollection implements TaskRepository {
   private _provider: DataProvider;
@@ -15,7 +15,7 @@ export default class TaskCollection implements TaskRepository {
   }
   
   async saveTask(task: Task | TaskProps, userEmail: string): Promise<void> {
-    return await this._provider.save(this.config(userEmail).path, task);
+    return await this._provider.save(this.config(userEmail).path, task, task.id!);
   }
   
   async updateTask(taskId: string, attributes: any, userEmail: string): Promise<void> {

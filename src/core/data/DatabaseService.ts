@@ -6,11 +6,11 @@ export default class DatabaseService implements DataProvider {
     this._provider = provider;
   }
 
-  async save(path: string, data: any, id?: string | undefined): Promise<void> {
+  async save(path: string, data: any, id: string): Promise<void> {
     return await this._provider.save(path, data, id);
   }
 
-  async update(path: string, attributes: any, id?: string | undefined): Promise<void> {
+  async update(path: string, attributes: any, id: string): Promise<void> {
     return await this._provider.update(path, attributes, id);
   }
 
@@ -21,5 +21,4 @@ export default class DatabaseService implements DataProvider {
   async consult(path: string): Promise<any> {
     return await this._provider.consult(path);
   }
-
 }

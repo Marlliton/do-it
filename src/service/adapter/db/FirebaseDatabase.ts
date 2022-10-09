@@ -3,9 +3,9 @@ import { collection, deleteDoc, doc, getDocs, getFirestore, setDoc, updateDoc } 
 import { app } from "../../../config/config";
 
 export default class FirebaseDatabase implements DataProvider {
-  async save(path: string, data: any, id?: string | undefined): Promise<void> {
+  async save(path: string, data: any, id: string): Promise<void> {
     const db = getFirestore(app);
-    const docRef = doc(db, path, id ?? data.id)
+    const docRef = doc(db, path, id)
     await setDoc(docRef, data.toJson());
   }
 

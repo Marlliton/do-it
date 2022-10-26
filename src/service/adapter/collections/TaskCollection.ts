@@ -5,42 +5,30 @@ import { TaskRepository } from "../../../core/task/TaskRepository";
 export default class TaskCollection implements TaskRepository {
   private _provider: DataProvider;
 
-  constructor(provider: DataProvider) {
+  constructor (provider: DataProvider) {
     this._provider = provider;
-  }
+  } 
 
   async consultTasks(userEmail: string): Promise<Task[]> {
     const result = await this._provider.consult(this.config(userEmail).path);
-    return result?.map((doc: TaskProps) => new Task({ ...doc }));
+    return result?.map((doc: TaskProps) => new Task({...doc}));
   }
-
+  
   async saveTask(task: Task | TaskProps, userEmail: string): Promise<void> {
-    return await this._provider.save(
-      this.config(userEmail).path,
-      task,
-      task.id!
-    );
+    return await this._provider.save(this.config(userEmail).path, task, task.id!);
   }
-
-  async updateTask(
-    taskId: string,
-    attributes: any,
-    userEmail: string
-  ): Promise<void> {
-    return await this._provider.update(
-      this.config(userEmail).path,
-      taskId,
-      attributes
-    );
+  
+  async updateTask(taskId: string, attributes: any, userEmail: string): Promise<void> {
+    return await this._provider.update(this.config(userEmail).path, taskId, attributes)
   }
 
   async destroyTask(taskId: string, userEmail: string): Promise<void> {
-    return await this._provider.delete(this.config(userEmail).path, taskId);
+    return await this._provider.delete(this.config(userEmail).path, taskId)
   }
 
   config(email: string) {
     return {
-      path: `tasks/${email}/all-tasks`,
-    };
+      path: `tasks/${email}/all-tasks`
+    }
   }
-}
+} 

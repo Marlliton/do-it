@@ -10,7 +10,6 @@ import { useAuth } from "../hooks/useAuth";
 const Authenticate: NextPage = () => {
   const { loginWithGoogle, loading } = useAuth();
 
-  useEffect(() => console.log(loading), [loading]);
   return (
     <Main>
       <div className="flex flex-col">

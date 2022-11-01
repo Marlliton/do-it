@@ -21,7 +21,7 @@ export default class ListTasks {
   }
 
   add(newTask: Task): ListTasks {
-    const allTasks = [...this.tasks, newTask];
+    const allTasks = [...this._props.tasks, newTask];
     return new ListTasks({ tasks: allTasks, filter: this.filter });
   }
 

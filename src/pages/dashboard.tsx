@@ -97,7 +97,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   if (!cookie["do-it"]) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/login",
         permanent: false,
       },
     };
